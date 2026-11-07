@@ -1,0 +1,400 @@
+// Paleta Kahuy: preto, verde e branco
+$primary: #1fa64a;
+$success: #1fa64a;
+$dark: #1b1b1b;
+$danger: #d64545;
+$secondary: #6b6b6b;
+$body-bg: #f7f7f7;
+$body-color: #1b1b1b;
+$font-family-sans-serif: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+$border-radius: 0.5rem;
+$border-radius-lg: 0.75rem;
+$card-border-color: #e6e6e6;
+$card-cap-bg: transparent;
+$progress-height: 0.6rem;
+$progress-bg: #ececec;
+$min-contrast-ratio: 2.9;
+
+@import 'bootstrap/scss/bootstrap';
+
+:root {
+  --kahuy-green: #{$primary};
+  --kahuy-black: #{$dark};
+  --kahuy-grey: #{$secondary};
+}
+
+body {
+  background: $body-bg;
+}
+
+.sidebar {
+  background: $dark;
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.6rem 0.75rem;
+    border: 0;
+    border-radius: $border-radius;
+    background: transparent;
+    color: rgba(#fff, 0.65);
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+
+    &:hover {
+      color: #fff;
+      background: rgba(#fff, 0.06);
+    }
+
+    &.active {
+      color: #fff;
+      background: rgba($primary, 0.18);
+      box-shadow: inset 3px 0 0 $primary;
+
+      .nav-icon {
+        color: $primary;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $primary;
+      outline-offset: 2px;
+    }
+  }
+
+  .nav-icon {
+    width: 1.1rem;
+    flex-shrink: 0;
+  }
+}
+
+aside.sidebar {
+  width: 232px;
+  min-height: 100vh;
+  padding: 1.25rem 0.75rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  transition: width 0.2s ease;
+
+  .sidebar-head {
+    padding: 0 0.5rem 1.5rem;
+  }
+
+  &.collapsed {
+    width: 72px;
+
+    .brand-name,
+    .nav-label,
+    .sidebar-section {
+      display: none;
+    }
+
+    .sidebar-head {
+      display: flex;
+      justify-content: center;
+      padding-inline: 0;
+    }
+
+    .nav-link {
+      justify-content: center;
+      padding-inline: 0;
+    }
+  }
+}
+
+.sidebar-section {
+  padding: 0 0.75rem 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(#fff, 0.35);
+}
+
+.sidebar-foot {
+  border-top: 1px solid rgba(#fff, 0.08);
+  padding-top: 0.75rem;
+}
+
+.brand {
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+
+  img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+}
+
+.card {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.metric {
+  font-size: 2.25rem;
+  font-weight: 300;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+
+  small {
+    font-size: 1rem;
+    color: $secondary;
+  }
+}
+
+.label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $secondary;
+  font-weight: 600;
+}
+
+.tier-bar {
+  position: relative;
+  padding-bottom: 1.6rem;
+
+  .tier-marker {
+    position: absolute;
+    top: -4px;
+    height: calc(#{$progress-height} + 8px);
+    width: 2px;
+    background: $dark;
+    transform: translateX(-1px);
+
+    > span {
+      position: absolute;
+      top: calc(#{$progress-height} + 10px);
+      right: 4px;
+      width: max-content;
+      white-space: nowrap;
+      font-size: 0.72rem;
+      color: $secondary;
+    }
+
+    &.reached > span {
+      color: $primary;
+      font-weight: 600;
+    }
+  }
+}
+
+.tier-bar.on-dark {
+  .progress {
+    background: rgba(#fff, 0.14);
+  }
+
+  .tier-marker {
+    background: #fff;
+
+    > span {
+      color: rgba(#fff, 0.6);
+    }
+  }
+}
+
+.login-wrap {
+  min-height: 100vh;
+}
+
+// Ritmo da semana em destaque (card Semana)
+.pace-panel {
+  background: $dark;
+  color: #fff;
+  border-radius: $border-radius-lg;
+  padding: 0.9rem 1rem;
+  font-size: 0.875rem;
+
+  @include media-breakpoint-up(lg) {
+    width: 16.5rem;
+  }
+
+  .pace-value {
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+
+    small {
+      font-size: 0.85rem;
+      color: rgba(#fff, 0.5);
+    }
+  }
+}
+
+// Seletor de período: ano + opções à vista (meses: 12, ou 6 por linha no celular; trimestres: 4)
+.period-grid {
+  display: grid;
+  gap: 0.25rem;
+
+  .btn {
+    position: relative;
+    min-width: 2.75rem;
+  }
+
+  &.months {
+    grid-template-columns: repeat(12, auto);
+
+    @include media-breakpoint-down(lg) {
+      grid-template-columns: repeat(6, 1fr);
+      width: 100%;
+    }
+  }
+
+  &.quarters {
+    grid-template-columns: repeat(4, auto);
+
+    .btn {
+      min-width: 4.25rem;
+    }
+  }
+}
+
+.period-dot {
+  position: absolute;
+  top: 3px;
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $primary;
+}
+
+// Loading por card: conteúdo atenuado e bloqueado, spinner no centro do card.
+// `.card.is-loading` = só aquele card (ex.: troca de semana; `.busy-keep` continua ativo);
+// `.page-loading` = todos os cards da página (troca de mês/trimestre).
+@mixin card-spinner {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2rem;
+    height: 2rem;
+    margin: -1rem 0 0 -1rem;
+    border: 0.25rem solid $primary;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: 0.75s linear infinite spinner-border;
+  }
+}
+
+.card.is-loading {
+  @include card-spinner;
+
+  > .card-body > :not(.busy-keep) {
+    opacity: 0.35;
+    pointer-events: none;
+    transition: opacity 0.15s;
+  }
+}
+
+.page-loading {
+  .card {
+    @include card-spinner;
+
+    > .card-body > * {
+      opacity: 0.35;
+      pointer-events: none;
+      transition: opacity 0.15s;
+    }
+  }
+
+  .busy-section {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+}
+
+// Cards de esqueleto na primeira carga (antes de existir qualquer dado)
+.card-placeholder > .card-body {
+  min-height: var(--placeholder-height, 140px);
+}
+
+
+// Calendário do mês (ao lado do Acumulado): útil verde, férias azul, feriado vermelho
+$vacation: #2f6fdb;
+
+.month-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  max-width: 16rem;
+  margin-inline: auto;
+  text-align: center;
+
+  .cal-head {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: $secondary;
+    padding-bottom: 0.15rem;
+  }
+
+  .cal-day {
+    height: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    cursor: default;
+
+    &.workday {
+      background: $primary;
+      color: #fff;
+    }
+
+    &.vacation {
+      background: $vacation;
+      color: #fff;
+    }
+
+    &.holiday {
+      background: $danger;
+      color: #fff;
+    }
+
+    &.weekend {
+      color: #b5b5b5;
+      font-weight: 400;
+    }
+
+    &.future:not(.weekend) {
+      opacity: 0.45;
+    }
+
+    &.today {
+      box-shadow: 0 0 0 2px $body-bg, 0 0 0 4px $dark;
+    }
+  }
+}
+
+.cal-swatch {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0.2rem;
+
+  &.workday {
+    background: $primary;
+  }
+
+  &.vacation {
+    background: $vacation;
+  }
+
+  &.holiday {
+    background: $danger;
+  }
+}

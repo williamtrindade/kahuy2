@@ -1,0 +1,12 @@
+/skills/
+.superpowers/
+node_modules/
+dist/
+.env
+.dev.vars
+.wrangler/
+.wrangler-secrets.json
+.playwright-mcp/
+.idea/
+holidays.local.json
+__pycache__/

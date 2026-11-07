@@ -1,0 +1,242 @@
+{
+ "object": "list",
+ "results": [
+  {
+   "object": "page",
+   "id": "40e55e6f-f0fc-8004-9399-f06fc8c50dbd",
+   "url": "https://www.notion.so/40e55e6ff0fc80049399f06fc8c50dbd",
+   "created_time": "2026-11-01T12:00:00.000Z",
+   "last_edited_time": "2026-11-05T12:00:00.000Z",
+   "archived": false,
+   "properties": {
+    "Task": {
+     "id": "title",
+     "type": "title",
+     "title": [
+      {
+       "type": "text",
+       "text": {
+        "content": "Pesos invertidos",
+        "link": null
+       },
+       "plain_text": "Pesos invertidos",
+       "href": null,
+       "annotations": {
+        "bold": false
+       }
+      }
+     ]
+    },
+    "Status": {
+     "id": "UHw-Sg",
+     "type": "select",
+     "select": {
+      "id": "s",
+      "name": "Concluido",
+      "color": "green"
+     }
+    },
+    "Tipo": {
+     "id": "XlVKTA",
+     "type": "select",
+     "select": {
+      "id": "t",
+      "name": "PROGRAMAÇÂO",
+      "color": "yellow"
+     }
+    },
+    "Horas": {
+     "id": "h",
+     "type": "number",
+     "number": 3
+    },
+    "Data": {
+     "id": "d",
+     "type": "date",
+     "date": {
+      "start": "2026-11-03T15:50:00.000-03:00",
+      "end": "2026-11-04T17:16:00.000-03:00",
+      "time_zone": null
+     }
+    },
+    "Duração (horas)": {
+     "id": "f",
+     "type": "formula",
+     "formula": {
+      "type": "number",
+      "number": 1
+     }
+    },
+    "Link": {
+     "id": "l",
+     "type": "url",
+     "url": null
+    },
+    "OBS": {
+     "id": "o",
+     "type": "rich_text",
+     "rich_text": []
+    }
+   }
+  },
+  {
+   "object": "page",
+   "id": "40e55e6f-f0fc-8005-9399-f06fc8c50dbd",
+   "url": "https://www.notion.so/40e55e6ff0fc80059399f06fc8c50dbd",
+   "created_time": "2026-11-01T12:00:00.000Z",
+   "last_edited_time": "2026-11-05T12:00:00.000Z",
+   "archived": false,
+   "properties": {
+    "Task": {
+     "id": "title",
+     "type": "title",
+     "title": [
+      {
+       "type": "text",
+       "text": {
+        "content": "Aso Rapido não puxa os riscos",
+        "link": null
+       },
+       "plain_text": "Aso Rapido não puxa os riscos",
+       "href": null,
+       "annotations": {
+        "bold": false
+       }
+      }
+     ]
+    },
+    "Status": {
+     "id": "UHw-Sg",
+     "type": "select",
+     "select": {
+      "id": "s",
+      "name": "Concluido",
+      "color": "green"
+     }
+    },
+    "Tipo": {
+     "id": "XlVKTA",
+     "type": "select",
+     "select": {
+      "id": "t",
+      "name": "PROGRAMAÇÂO",
+      "color": "yellow"
+     }
+    },
+    "Horas": {
+     "id": "h",
+     "type": "number",
+     "number": 4
+    },
+    "Data": {
+     "id": "d",
+     "type": "date",
+     "date": {
+      "start": "2026-10-30T08:17:00.000-03:00",
+      "end": "2026-10-30T14:01:00.000-03:00",
+      "time_zone": null
+     }
+    },
+    "Duração (horas)": {
+     "id": "f",
+     "type": "formula",
+     "formula": {
+      "type": "number",
+      "number": 1
+     }
+    },
+    "Link": {
+     "id": "l",
+     "type": "url",
+     "url": null
+    },
+    "OBS": {
+     "id": "o",
+     "type": "rich_text",
+     "rich_text": []
+    }
+   }
+  },
+  {
+   "object": "page",
+   "id": "40e55e6f-f0fc-8006-9399-f06fc8c50dbd",
+   "url": "https://www.notion.so/40e55e6ff0fc80069399f06fc8c50dbd",
+   "created_time": "2026-11-01T12:00:00.000Z",
+   "last_edited_time": "2026-11-05T12:00:00.000Z",
+   "archived": false,
+   "properties": {
+    "Task": {
+     "id": "title",
+     "type": "title",
+     "title": [
+      {
+       "type": "text",
+       "text": {
+        "content": "Integração de exames [Heliomar Marconato]",
+        "link": null
+       },
+       "plain_text": "Integração de exames [Heliomar Marconato]",
+       "href": null,
+       "annotations": {
+        "bold": false
+       }
+      }
+     ]
+    },
+    "Status": {
+     "id": "UHw-Sg",
+     "type": "select",
+     "select": {
+      "id": "s",
+      "name": "Programando",
+      "color": "green"
+     }
+    },
+    "Tipo": {
+     "id": "XlVKTA",
+     "type": "select",
+     "select": {
+      "id": "t",
+      "name": "TESTE",
+      "color": "yellow"
+     }
+    },
+    "Horas": {
+     "id": "h",
+     "type": "number",
+     "number": null
+    },
+    "Data": {
+     "id": "d",
+     "type": "date",
+     "date": {
+      "start": "2026-10-29T15:53:00.000-03:00",
+      "end": null,
+      "time_zone": null
+     }
+    },
+    "Duração (horas)": {
+     "id": "f",
+     "type": "formula",
+     "formula": {
+      "type": "number",
+      "number": 1
+     }
+    },
+    "Link": {
+     "id": "l",
+     "type": "url",
+     "url": null
+    },
+    "OBS": {
+     "id": "o",
+     "type": "rich_text",
+     "rich_text": []
+    }
+   }
+  }
+ ],
+ "has_more": false,
+ "next_cursor": null,
+ "type": "page_or_database"
+}

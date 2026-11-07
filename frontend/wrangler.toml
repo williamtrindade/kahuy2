@@ -1,0 +1,9 @@
+# Pages do front. functions/api/[[path]].ts repassa /api/* ao Worker kahuy-api (backend/wrangler.toml)
+# pelo binding API: front e API no mesmo domínio (cookie SameSite=Strict, sem CORS).
+name = "kahuy"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-10-01"
+
+[[services]]
+binding = "API"
+service = "kahuy-api"

@@ -1,0 +1,17 @@
+{
+  "name": "kahuy",
+  "private": true,
+  "description": "Atalhos para backend/ (API) e frontend/ (dashboard), cada um com o próprio package.json.",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "setup": "npm --prefix backend install && npm --prefix frontend install",
+    "dev": "npm --prefix backend run dev & npm --prefix frontend run dev",
+    "start": "npm --prefix backend start",
+    "test": "npm --prefix backend test",
+    "typecheck": "npm --prefix backend run typecheck && npm --prefix frontend run typecheck",
+    "build": "npm --prefix frontend run build",
+    "deploy": "npm --prefix backend run deploy && npm --prefix frontend run deploy"
+  }
+}

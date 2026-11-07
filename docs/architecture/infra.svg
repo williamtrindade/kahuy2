@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1300" viewBox="0 0 1500 1300" font-family="Inter, Helvetica, Arial, sans-serif">
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6b6b6b"/></marker>
+<marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1fa64a"/></marker>
+</defs>
+<rect width="1500" height="1300" fill="#ffffff"/>
+<text x="20" y="42" font-size="24" font-weight="700" fill="#1b1b1b">kahuy · infraestrutura</text>
+<rect x="20" y="70" width="1170" height="330" rx="10" fill="#f4f4f4" stroke="#1b1b1b" stroke-width="1.5"/>
+<text x="38" y="100" font-size="17" font-weight="700" fill="#1b1b1b">Desenvolvimento local<tspan font-size="13" font-weight="400" fill="#6b6b6b" dx="12">agnóstico: Node + Vite puros, sem wrangler · npm run dev na raiz sobe os dois</tspan></text>
+<rect x="20" y="440" width="1170" height="400" rx="10" fill="#e6f4ea" stroke="#1b1b1b" stroke-width="1.5"/>
+<text x="38" y="470" font-size="17" font-weight="700" fill="#1b1b1b">Produção · Cloudflare<tspan font-size="13" font-weight="400" fill="#6b6b6b" dx="12">Pages (front) + Worker (API) separados · mesmo domínio via service binding (cookie Strict)</tspan></text>
+<rect x="20" y="880" width="1460" height="330" rx="10" fill="#ececec" stroke="#1b1b1b" stroke-width="1.5"/>
+<text x="38" y="910" font-size="17" font-weight="700" fill="#1b1b1b">Entrega<tspan font-size="13" font-weight="400" fill="#6b6b6b" dx="12">um repositório: backend/ (API) e frontend/ (dashboard) · deploy e CI</tspan></text>
+<rect x="40" y="130" width="220" height="110" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2" stroke-dasharray="6 4"/>
+<text x="52" y="154" font-size="15" font-weight="700" fill="#1b1b1b">Navegador</text>
+<text x="52" y="173" font-size="13" fill="#1b1b1b">localhost:5173</text>
+<rect x="320" y="130" width="260" height="110" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="332" y="154" font-size="15" font-weight="700" fill="#1fa64a">frontend/ · Vite dev</text>
+<text x="332" y="173" font-size="13" fill="#1b1b1b">React + Bootstrap</text>
+<text x="332" y="192" font-size="13" fill="#1b1b1b">:5173 · proxy /api → :8787</text>
+<text x="332" y="211" font-size="13" fill="#1b1b1b">(destino: KAHUY_API)</text>
+<rect x="640" y="120" width="320" height="130" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="652" y="144" font-size="15" font-weight="700" fill="#1fa64a">backend/ · Node (só API)</text>
+<text x="652" y="163" font-size="13" fill="#1b1b1b">tsx watch · Hono (node.ts)</text>
+<text x="652" y="182" font-size="13" fill="#1b1b1b">127.0.0.1:8787 (só local)</text>
+<text x="652" y="201" font-size="13" fill="#1b1b1b">MemoryRateLimiter 5/min por IP</text>
+<text x="652" y="220" font-size="13" fill="#1b1b1b">IP da conexão (TRUST_PROXY opcional)</text>
+<rect x="320" y="290" width="260" height="90" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="332" y="314" font-size="15" font-weight="700" fill="#1fa64a">npm run dev (raiz)</text>
+<text x="332" y="333" font-size="13" fill="#1b1b1b">backend/: API · frontend/: Vite</text>
+<text x="332" y="352" font-size="13" fill="#1b1b1b">preview do front: :4173</text>
+<rect x="640" y="290" width="320" height="90" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="652" y="314" font-size="15" font-weight="700" fill="#1fa64a">Config · backend/</text>
+<text x="652" y="333" font-size="13" fill="#1b1b1b">.env · holidays.json</text>
+<text x="652" y="352" font-size="13" fill="#1b1b1b">holidays.local.json (fora do git)</text>
+<rect x="1230" y="380" width="240" height="110" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2" stroke-dasharray="6 4"/>
+<text x="1242" y="404" font-size="15" font-weight="700" fill="#1b1b1b">Notion API</text>
+<text x="1242" y="423" font-size="13" fill="#1b1b1b">REST oficial</text>
+<text x="1242" y="442" font-size="13" fill="#1b1b1b">somente leitura</text>
+<rect x="40" y="500" width="220" height="110" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2" stroke-dasharray="6 4"/>
+<text x="52" y="524" font-size="15" font-weight="700" fill="#1b1b1b">Navegador</text>
+<text x="52" y="543" font-size="13" fill="#1b1b1b">https://kahuy</text>
+<text x="52" y="562" font-size="13" fill="#1b1b1b">.pages.dev</text>
+<rect x="40" y="660" width="220" height="100" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2" stroke-dasharray="6 4"/>
+<text x="52" y="684" font-size="15" font-weight="700" fill="#1b1b1b">Cloudflare Access</text>
+<text x="52" y="703" font-size="13" fill="#1b1b1b">login por e-mail</text>
+<text x="52" y="722" font-size="13" fill="#1b1b1b">(opcional)</text>
+<rect x="320" y="500" width="260" height="110" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="332" y="524" font-size="15" font-weight="700" fill="#1fa64a">Pages Function</text>
+<text x="332" y="543" font-size="13" fill="#1b1b1b">functions/api/[[path]].ts</text>
+<text x="332" y="562" font-size="13" fill="#1b1b1b">/api/* → env.API.fetch()</text>
+<text x="332" y="581" font-size="13" fill="#1b1b1b">(service binding)</text>
+<rect x="320" y="660" width="260" height="150" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="332" y="684" font-size="15" font-weight="700" fill="#1fa64a">Pages · kahuy (estático)</text>
+<text x="332" y="703" font-size="13" fill="#1b1b1b">frontend/dist/</text>
+<text x="332" y="722" font-size="13" fill="#1b1b1b">_headers gerado no build</text>
+<text x="332" y="741" font-size="13" fill="#1b1b1b">(CSP de securityHeaders.ts)</text>
+<text x="332" y="760" font-size="13" fill="#1b1b1b">SPA fallback</text>
+<rect x="640" y="490" width="320" height="140" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="652" y="514" font-size="15" font-weight="700" fill="#1fa64a">Worker kahuy-api · backend/</text>
+<text x="652" y="533" font-size="13" fill="#1b1b1b">worker.ts → mesmo app Hono</text>
+<text x="652" y="552" font-size="13" fill="#1b1b1b">workers_dev = false (sem URL)</text>
+<text x="652" y="571" font-size="13" fill="#1b1b1b">sessão HMAC (cookie Strict)</text>
+<text x="652" y="590" font-size="13" fill="#1b1b1b">Clean Architecture</text>
+<rect x="640" y="670" width="320" height="140" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="652" y="694" font-size="15" font-weight="700" fill="#1fa64a">Rate Limiting binding</text>
+<text x="652" y="713" font-size="13" fill="#1b1b1b">LOGIN_LIMITER (wrangler.toml)</text>
+<text x="652" y="732" font-size="13" fill="#1b1b1b">5 tentativas / 60 s</text>
+<text x="652" y="751" font-size="13" fill="#1b1b1b">chave: cf-connecting-ip</text>
+<text x="652" y="770" font-size="13" fill="#1b1b1b">contador do Cloudflare</text>
+<rect x="1000" y="670" width="170" height="140" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="1012" y="694" font-size="15" font-weight="700" fill="#1fa64a">Secrets</text>
+<text x="1012" y="713" font-size="13" fill="#1b1b1b">NOTION_TOKEN</text>
+<text x="1012" y="732" font-size="13" fill="#1b1b1b">KAHUY_PASSWORD</text>
+<text x="1012" y="751" font-size="13" fill="#1b1b1b">HOLIDAYS (folgas)</text>
+<text x="1012" y="770" font-size="13" fill="#1b1b1b">…</text>
+<rect x="40" y="960" width="190" height="100" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2" stroke-dasharray="6 4"/>
+<text x="52" y="984" font-size="15" font-weight="700" fill="#1b1b1b">GitHub</text>
+<text x="52" y="1003" font-size="13" fill="#1b1b1b">kahuy</text>
+<text x="52" y="1022" font-size="13" fill="#1b1b1b">backend/ + frontend/</text>
+<text x="52" y="1041" font-size="13" fill="#1b1b1b">git push / PR</text>
+<rect x="310" y="960" width="250" height="120" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="322" y="984" font-size="15" font-weight="700" fill="#1fa64a">GitHub Actions · CI</text>
+<text x="322" y="1003" font-size="13" fill="#1b1b1b">backend: test + typecheck</text>
+<text x="322" y="1022" font-size="13" fill="#1b1b1b">frontend: typecheck + build</text>
+<text x="322" y="1041" font-size="13" fill="#1b1b1b">(tipos = ViewModels do back)</text>
+<rect x="600" y="960" width="280" height="120" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="612" y="984" font-size="15" font-weight="700" fill="#1fa64a">./deploy.sh api · front</text>
+<text x="612" y="1003" font-size="13" fill="#1b1b1b">api: testes + wrangler deploy</text>
+<text x="612" y="1022" font-size="13" fill="#1b1b1b">front: build + wrangler</text>
+<text x="612" y="1041" font-size="13" fill="#1b1b1b">pages deploy (cada um à parte)</text>
+<rect x="920" y="960" width="260" height="120" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="932" y="984" font-size="15" font-weight="700" fill="#1fa64a">./deploy.sh secrets</text>
+<text x="932" y="1003" font-size="13" fill="#1b1b1b">backend/.env + holidays.local.json</text>
+<text x="932" y="1022" font-size="13" fill="#1b1b1b">→ wrangler secret bulk</text>
+<rect x="1220" y="960" width="240" height="100" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2"/>
+<text x="1232" y="984" font-size="15" font-weight="700" fill="#1fa64a">backend/ · npm run holidays</text>
+<text x="1232" y="1003" font-size="13" fill="#1b1b1b">-- AAAA: nacionais</text>
+<text x="1232" y="1022" font-size="13" fill="#1b1b1b">→ holidays.json (vai no build)</text>
+<rect x="1220" y="1100" width="240" height="80" rx="6" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.2" stroke-dasharray="6 4"/>
+<text x="1232" y="1124" font-size="15" font-weight="700" fill="#1b1b1b">BrasilAPI</text>
+<text x="1232" y="1143" font-size="13" fill="#1b1b1b">feriados nacionais</text>
+<line x1="260.0" y1="185.0" x2="320.0" y2="185.0" stroke="#1fa64a" stroke-width="1.8" marker-end="url(#g)"/>
+<text x="290.0" y="177.0" font-size="12" text-anchor="middle" fill="#1b1b1b">HTTP</text>
+<line x1="580.0" y1="185.0" x2="640.0" y2="185.0" stroke="#1fa64a" stroke-width="1.8" marker-end="url(#g)"/>
+<text x="610.0" y="177.0" font-size="12" text-anchor="middle" fill="#1b1b1b">/api/*</text>
+<line x1="960.0" y1="159.0" x2="1302.0" y2="380.0" stroke="#1fa64a" stroke-width="1.8" marker-end="url(#g)"/>
+<rect x="1109.5" y="259.5" width="43.0" height="18" rx="4" fill="#ffffff" opacity="0.92"/>
+<text x="1131.0" y="273.5" font-size="12" text-anchor="middle" fill="#1b1b1b">fetch</text>
+<line x1="450.0" y1="290.0" x2="450.0" y2="240.0" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<text x="458.0" y="269.0" font-size="12" text-anchor="start" fill="#1b1b1b">sobe</text>
+<line x1="580.0" y1="335.0" x2="640.0" y2="335.0" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<line x1="800.0" y1="290.0" x2="800.0" y2="250.0" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<text x="808.0" y="274.0" font-size="12" text-anchor="start" fill="#1b1b1b">lê</text>
+<line x1="260.0" y1="555.0" x2="320.0" y2="555.0" stroke="#1fa64a" stroke-width="1.8" marker-end="url(#g)"/>
+<text x="290.0" y="547.0" font-size="12" text-anchor="middle" fill="#1b1b1b">HTTPS</text>
+<line x1="450.0" y1="610.0" x2="450.0" y2="660.0" stroke="#1fa64a" stroke-width="1.8" marker-end="url(#g)"/>
+<text x="458.0" y="639.0" font-size="12" text-anchor="start" fill="#1b1b1b">/*</text>
+<line x1="580.0" y1="555.0" x2="640.0" y2="555.0" stroke="#1fa64a" stroke-width="1.8" marker-end="url(#g)"/>
+<text x="610.0" y="547.0" font-size="12" text-anchor="middle" fill="#1b1b1b">/api/*</text>
+<line x1="800.0" y1="630.0" x2="800.0" y2="670.0" stroke="#1fa64a" stroke-width="1.8" marker-end="url(#g)"/>
+<text x="808.0" y="654.0" font-size="12" text-anchor="start" fill="#1b1b1b">login: limit(ip)</text>
+<line x1="960.0" y1="546.0" x2="1230.0" y2="457.0" stroke="#1fa64a" stroke-width="1.8" marker-end="url(#g)"/>
+<rect x="1073.5" y="491.5" width="43.0" height="18" rx="4" fill="#ffffff" opacity="0.92"/>
+<text x="1095.0" y="505.5" font-size="12" text-anchor="middle" fill="#1b1b1b">fetch</text>
+<line x1="1085.0" y1="670.0" x2="960.0" y2="609.0" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<rect x="1007.6" y="629.5" width="29.8" height="18" rx="4" fill="#ffffff" opacity="0.92"/>
+<text x="1022.5" y="643.5" font-size="12" text-anchor="middle" fill="#1b1b1b">env</text>
+<line x1="150.0" y1="660.0" x2="150.0" y2="610.0" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<text x="158.0" y="639.0" font-size="12" text-anchor="start" fill="#1b1b1b">protege</text>
+<line x1="230.0" y1="1010.0" x2="310.0" y2="1010.0" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<text x="270.0" y="1002.0" font-size="12" text-anchor="middle" fill="#1b1b1b">push/PR</text>
+<line x1="684.0" y1="960.0" x2="502.0" y2="810.0" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<rect x="571.5" y="875.0" width="43.0" height="18" rx="4" fill="#ffffff" opacity="0.92"/>
+<text x="593.0" y="889.0" font-size="12" text-anchor="middle" fill="#1b1b1b">Pages</text>
+<line x1="810.0" y1="960.0" x2="768.0" y2="810.0" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<rect x="731.2" y="875.0" width="115.6" height="18" rx="4" fill="#ffffff" opacity="0.92"/>
+<text x="789.0" y="889.0" font-size="12" text-anchor="middle" fill="#1b1b1b">Worker + binding</text>
+<line x1="1024.0" y1="960.0" x2="1085.0" y2="810.0" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<rect x="1026.4" y="875.0" width="56.2" height="18" rx="4" fill="#ffffff" opacity="0.92"/>
+<text x="1054.5" y="889.0" font-size="12" text-anchor="middle" fill="#1b1b1b">secrets</text>
+<line x1="1340.0" y1="1060.0" x2="1340.0" y2="1100.0" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<text x="1348.0" y="1084.0" font-size="12" text-anchor="start" fill="#1b1b1b">fetch</text>
+<text x="1230" y="520" font-size="14" font-weight="700" fill="#1b1b1b">Legenda</text>
+<line x1="1230" y1="540" x2="1280" y2="540" stroke="#1fa64a" stroke-width="1.8" marker-end="url(#g)"/>
+<text x="1292" y="544" font-size="13" fill="#1b1b1b">requisição</text>
+<line x1="1230" y1="564" x2="1280" y2="564" stroke="#6b6b6b" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#a)"/>
+<text x="1292" y="568" font-size="13" fill="#1b1b1b">config / deploy</text>
+<rect x="1230" y="580" width="50" height="18" rx="4" fill="#ffffff" stroke="#1b1b1b" stroke-dasharray="6 4"/>
+<text x="1292" y="593" font-size="13" fill="#1b1b1b">externo / opcional</text>
+<text x="1230" y="630" font-size="12" fill="#6b6b6b">Mesmo app Hono nos dois ambientes:</text>
+<text x="1230" y="648" font-size="12" fill="#6b6b6b">só muda a entrada (node.ts / worker.ts)</text>
+<text x="1230" y="666" font-size="12" fill="#6b6b6b">e o RateLimiter (memória / binding).</text>
+</svg>

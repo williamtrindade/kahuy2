@@ -1,11 +1,10 @@
 import type { GetQuarterlyProgressResponseModel as R } from '../../UseCases/GetQuarterlyProgress/DTOs/GetQuarterlyProgressResponseModel'
-import { type GoalTierViewModel, toGoalTierViewModel } from './GoalTierViewModel'
 import { percent, round1 } from './round'
+import { type ScenarioViewModel, toOutlookScenario } from './ScenarioViewModel'
 
-export type QuarterlyProgressViewModel = Omit<R, 'tiers' | 'months'> & {
-  donePercent: number
-  forecastPercent: number
-  tiers: GoalTierViewModel[]
+export type QuarterlyProgressViewModel = Omit<R, 'delivered' | 'forecast' | 'months'> & {
+  delivered: ScenarioViewModel
+  forecast: ScenarioViewModel
   months: (R['months'][number] & { donePercent: number })[]
 }
 
@@ -15,13 +14,12 @@ export function toQuarterlyProgressViewModel(r: R): QuarterlyProgressViewModel {
     goalHours: round1(r.goalHours),
     doneHours: round1(r.doneHours),
     forecastHours: round1(r.forecastHours),
-    remainingHours: round1(r.remainingHours),
-    donePercent: percent(r.doneHours, r.goalHours),
-    forecastPercent: percent(r.forecastHours, r.goalHours),
-    tiers: r.tiers.map(toGoalTierViewModel),
+    delivered: toOutlookScenario(r.delivered, r.goalHours),
+    forecast: toOutlookScenario(r.forecast, r.goalHours),
     months: r.months.map((m) => ({
       ...m,
       goalHours: round1(m.goalHours),
+      expectedHours: round1(m.expectedHours),
       doneHours: round1(m.doneHours),
       forecastHours: round1(m.forecastHours),
       donePercent: percent(m.doneHours, m.goalHours),

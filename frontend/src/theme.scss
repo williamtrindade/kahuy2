@@ -204,7 +204,7 @@ aside.sidebar {
   min-height: 100vh;
 }
 
-// Ritmo da semana em destaque (card Semana)
+// Ritmo em destaque (card Mês)
 .pace-panel {
   background: $dark;
   color: #fff;
@@ -213,11 +213,11 @@ aside.sidebar {
   font-size: 0.875rem;
 
   @include media-breakpoint-up(lg) {
-    width: 16.5rem;
+    width: 19.5rem;
   }
 
   .pace-value {
-    font-size: 2rem;
+    font-size: 2.25rem;
     font-weight: 300;
     line-height: 1.1;
     font-variant-numeric: tabular-nums;
@@ -226,6 +226,12 @@ aside.sidebar {
       font-size: 0.85rem;
       color: rgba(#fff, 0.5);
     }
+  }
+
+  .pace-projection {
+    font-size: 1.35rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
   }
 }
 

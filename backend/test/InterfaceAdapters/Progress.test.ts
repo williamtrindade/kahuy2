@@ -22,6 +22,9 @@ const monthly: GetMonthlyProgressResponseModel = {
   openHours: 14,
   forecastHours: 112,
   remainingWorkingDays: 12,
+  dailyGoalHours: 8,
+  pacePerWorkday: 6.1666,
+  projectedHours: 172.04,
   delivered: {
     hours: 98,
     tiers: [{ percent: 100, goalHours: 152, expectedHours: 94.6666, reached: false, onTrack: true, deltaHours: 3.3333, remainingHours: 54, requiredPerDay: 4.4444 }],
@@ -59,9 +62,17 @@ const quarterly: GetQuarterlyProgressResponseModel = {
   goalHours: 488,
   doneHours: 122.25,
   forecastHours: 136.25,
-  remainingHours: 365.75,
-  tiers: [{ percent: 100, goalHours: 488, expectedHours: 197.71, reached: false, onTrack: false, deltaHours: -75.46 }],
-  months: [{ month: '2026-10', goalHours: 176, doneHours: 88, forecastHours: 88, goalEstimated: false, isCurrent: false }],
+  period: 'current',
+  remainingWorkingDays: 38,
+  delivered: {
+    hours: 122.25,
+    tiers: [{ percent: 100, goalHours: 488, expectedHours: 197.71, reached: false, onTrack: false, deltaHours: -75.46, remainingHours: 365.75, requiredPerDay: 9.6250 }],
+  },
+  forecast: {
+    hours: 136.25,
+    tiers: [{ percent: 100, goalHours: 488, expectedHours: 197.71, reached: false, onTrack: false, deltaHours: -61.46, remainingHours: 351.75, requiredPerDay: 9.2565 }],
+  },
+  months: [{ month: '2026-10', goalHours: 176, expectedHours: 176, doneHours: 88, forecastHours: 88, goalEstimated: false, isCurrent: false }],
 }
 
 describe('view model helpers', () => {
@@ -81,6 +92,7 @@ describe('GetMonthlyProgressApiPresenter', () => {
     expect(vm.delivered.tiers[0]).toMatchObject({ expectedHours: 94.7, deltaHours: 3.3, onTrack: true, requiredPerDay: 4.4 })
     expect(vm.forecast).toMatchObject({ hours: 112, percent: 74 })
     expect(vm.averageHoursPerTask).toBe(32.7)
+    expect(vm).toMatchObject({ pacePerWorkday: 6.2, projectedHours: 172, projectedPercent: 113, dailyGoalHours: 8 })
     expect(vm.tasks[0]).toMatchObject({ hours: 2.3, kind: 'test', done: true })
     expect(vm.calendar[0]).toEqual({ date: '2026-11-03', kind: 'workday', name: null, doneHours: 2.3 })
     expect(vm.today!.delivered).toMatchObject({ hours: 6, percent: 75 })
@@ -100,14 +112,11 @@ const weekly: GetWeeklyProgressResponseModel = {
   previousWeek: '2026-10-25',
   nextWeek: '2026-11-08',
   goalHours: 40,
-  dailyGoalHours: 8,
   workingDays: 5,
   remainingWorkdays: 2,
   doneHours: 13.25,
   openHours: 6,
   forecastHours: 19.25,
-  pacePerWorkday: 4.4166,
-  projectedHours: 21.83,
   delivered: {
     hours: 13.25,
     tiers: [{ percent: 100, goalHours: 40, expectedHours: 24, reached: false, onTrack: false, deltaHours: -10.76, remainingHours: 26.76, requiredPerDay: 13.38 }],
@@ -123,7 +132,7 @@ describe('GetWeeklyProgressApiPresenter', () => {
     const p = new GetWeeklyProgressApiPresenter()
     p.present(weekly)
     const vm = p.getViewModel()
-    expect(vm).toMatchObject({ doneHours: 13.3, pacePerWorkday: 4.4, projectedHours: 21.8, previousWeek: '2026-10-25' })
+    expect(vm).toMatchObject({ doneHours: 13.3, previousWeek: '2026-10-25' })
     expect(vm.delivered).toMatchObject({ hours: 13.3, percent: 33 })
     expect(vm.delivered.tiers[0]).toMatchObject({ deltaHours: -10.8, remainingHours: 26.8, requiredPerDay: 13.4 })
     expect(vm.forecast).toMatchObject({ hours: 19.3, percent: 48 })
@@ -135,11 +144,11 @@ describe('GetQuarterlyProgressApiPresenter', () => {
     const p = new GetQuarterlyProgressApiPresenter()
     p.present(quarterly)
     const vm = p.getViewModel()
-    expect(vm.donePercent).toBe(25)
-    expect(vm.forecastPercent).toBe(28)
+    expect(vm.delivered).toMatchObject({ hours: 122.3, percent: 25 })
+    expect(vm.forecast).toMatchObject({ hours: 136.3, percent: 28 })
     expect(vm.doneHours).toBe(122.3)
     expect(vm.months[0]).toMatchObject({ donePercent: 50 })
-    expect(vm.tiers[0]).toMatchObject({ deltaHours: -75.5 })
+    expect(vm.delivered.tiers[0]).toMatchObject({ deltaHours: -75.5, remainingHours: 365.8, requiredPerDay: 9.6 })
   })
 })
 

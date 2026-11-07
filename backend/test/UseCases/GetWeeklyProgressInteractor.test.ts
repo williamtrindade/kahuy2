@@ -33,7 +33,6 @@ describe('GetWeeklyProgressInteractor', () => {
       previousWeek: '2026-10-25',
       nextWeek: '2026-11-08',
       goalHours: 40,
-      dailyGoalHours: 8,
       workingDays: 5,
       doneHours: 5,
     })
@@ -51,15 +50,6 @@ describe('GetWeeklyProgressInteractor', () => {
     expect(w.forecast.tiers[0]).toMatchObject({ remainingHours: 29, requiredPerDay: 14.5, expectedHours: 24, onTrack: false })
   })
 
-  it('projects by the pace of closed workdays', async () => {
-    const w = await run({})
-    expect(w.pacePerWorkday).toBeCloseTo(5 / 3) // seg, ter, qua fechados com 5h
-    expect(w.projectedHours).toBeCloseTo(5 + (5 / 3) * 2)
-    const monday = await run({}, { now: '2026-11-02T15:00:00Z' })
-    expect(monday.pacePerWorkday).toBeNull() // nenhum dia útil fechado ainda
-    expect(monday.projectedHours).toBeNull()
-  })
-
   it('shows any week chosen by a date in it: a past week is closed', async () => {
     const tasks = [
       makeTask({ title: 'qui', hours: 10, endDate: new Date('2026-10-29T15:00:00Z') }),
@@ -70,13 +60,11 @@ describe('GetWeeklyProgressInteractor', () => {
     expect(w).toMatchObject({ start: '2026-10-25', end: '2026-10-31', period: 'past', doneHours: 30, openHours: 0, remainingWorkdays: 0 })
     expect(w.forecast).toEqual(w.delivered) // abertas só contam na semana corrente
     expect(w.delivered.tiers[0]).toMatchObject({ expectedHours: 40, remainingHours: 10, requiredPerDay: 0 })
-    expect(w.pacePerWorkday).toBe(6) // 30h / 5 dias úteis
-    expect(w.projectedHours).toBe(30)
   })
 
   it('a future week has nothing expected yet', async () => {
     const w = await run({ week: '2026-11-10' })
-    expect(w).toMatchObject({ start: '2026-11-08', period: 'future', doneHours: 0, openHours: 0, remainingWorkdays: 5, pacePerWorkday: null })
+    expect(w).toMatchObject({ start: '2026-11-08', period: 'future', doneHours: 0, openHours: 0, remainingWorkdays: 5 })
     expect(w.delivered.tiers[0]).toMatchObject({ expectedHours: 0, onTrack: true, requiredPerDay: 8 })
   })
 

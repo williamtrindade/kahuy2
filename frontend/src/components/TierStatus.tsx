@@ -9,7 +9,7 @@ export type Period = 'past' | 'current' | 'future'
  */
 export function TierStatus({ tiers, period }: { tiers: Tier[]; period: Period }) {
   if (period === 'future' || tiers.every((t) => t.goalHours <= 0)) {
-    return <p className="small text-secondary mb-0 mt-2">{period === 'future' ? 'Mês ainda não começou' : 'Sem meta neste período'}</p>
+    return <p className="small text-secondary mb-0 mt-2">{period === 'future' ? 'Ainda não começou' : 'Sem meta neste período'}</p>
   }
   return (
     <ul className="list-unstyled small mb-0 mt-2">

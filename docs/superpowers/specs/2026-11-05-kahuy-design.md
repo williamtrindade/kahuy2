@@ -49,7 +49,7 @@ atualizando via `git pull`. Possível ferramenta interna no futuro.
 | Previsão | Realizado + Σ horas das tasks abertas — **apenas** quando o período contém o mês corrente. Para períodos passados, previsão = realizado. |
 | Dias úteis restantes | Dias úteis de hoje (inclusive) até o fim do mês, limitado ao total do mês. |
 | Hoje | Σ horas das tasks concluídas cuja data final (no `TIMEZONE`) é hoje. Só no mês corrente. |
-| Cenários (hoje, semana, mês) | **Entregue** = só concluídas; **Previsto** = concluídas + abertas (as abertas contam no período corrente: hoje, semana e mês). A API devolve os dois (`delivered`/`forecast`); o front alterna por card (botão, escolha lembrada no navegador). Fora do mês corrente, previsto = entregue. |
+| Cenários (hoje, semana, mês, trimestre) | **Entregue** = só concluídas; **Previsto** = concluídas + abertas (as abertas contam no período corrente: hoje, semana e mês). A API devolve os dois (`delivered`/`forecast`); o front alterna por card (botão, escolha lembrada no navegador). Fora do mês corrente, previsto = entregue. |
 | Meta do dia | `HOURS_PER_DAY` em dia útil (seg–sex); 0 no fim de semana (`isWorkingDay: false`). |
 | Dia útil | Seg–sex que não é feriado nacional (`holidays.json`, no build) nem folga pessoal (`HOLIDAYS`). Regra única em `WorkCalendarRepositoryInterface.isWorkday`; `dayOff(date)` diz se a folga é `holiday` (nacional) ou `vacation` (pessoal, que vence na data repetida); `WorkMonth.workdays` guarda as datas úteis do mês. |
 | Semana | Domingo a sábado (Entity `Week`), qualquer semana (`GET /api/progress/weekly?week=AAAA-MM-DD`, padrão: corrente). Abertas só na semana corrente. Semana passada: esperado = meta, restam 0 dias; futura: esperado 0. Realizado = concluídas com data final na semana. Meta = dias úteis da semana × `HOURS_PER_DAY` (40h sem feriado). Esperado = dias úteis encerrados antes de hoje × `HOURS_PER_DAY`. |
@@ -61,7 +61,7 @@ atualizando via `git pull`. Possível ferramenta interna no futuro.
 | Linhas ideais (gráfico) | Uma por faixa de `GOAL_TIERS` (100% = meta, 125% = supermeta). Para cada dia do mês: `meta da faixa × (dias úteis até o dia / dias úteis do mês)`. |
 | Nome entre colchetes | Texto do último `[...]` no título. Em tasks de teste (`TEST_TYPES`, padrão `TESTE`) é o **dev** que fez o que foi testado → "Horas de teste por dev"; nas demais é o **solicitante** → "Horas por solicitante". Cada card some se vazio. |
 | Faixas por cenário | Semana e mês: no ritmo/atrás, faltam (≥ 0) e ritmo necessário = faltam ÷ dias úteis restantes (hoje incluso). Dia: atingida e faltam (0 em dia não útil). |
-| Semana: projeção | Ritmo = entregue antes de hoje ÷ dias úteis encerrados; projeção = entregue antes de hoje + ritmo × dias úteis restantes (mínimo = entregue). `null` se nenhum dia útil encerrou. |
+| Mês: ritmo e projeção | Ritmo = entregue no mês antes de hoje ÷ dias úteis do mês já encerrados; projeção = entregue antes de hoje + ritmo × dias úteis restantes (mínimo = entregue). `null` se nenhum dia útil encerrou (mês futuro ou 1º dia útil). Mês passado: média do mês inteiro e projeção = realizado. |
 | Fuso horário | Limites de dia/mês calculados no fuso `TIMEZONE` (padrão `America/Sao_Paulo`); o Notion devolve UTC. Datas só com dia (`2026-11-01`, sem hora) são tratadas como esse dia local. |
 | Tipos de campo | Horas: `number` ou fórmula numérica. Status: `select` ou `status`. Data: `date`. Título: `title`. Tipo diferente → 502 citando o campo e o tipo. |
 
@@ -304,10 +304,11 @@ frontend/src/
 - Card "Semana" (dados próprios via `/weekly`): as semanas do mês (`weeks`, dom–sáb completas) ficam à
   vista para escolher, com ● na atual; abre na semana corrente (mês corrente) ou na última/primeira semana
   do mês navegado. Ao trocar, o card mostra o loading até chegarem os dados. Horas / meta, status por faixa
-  (corrente: ritmo, faltam, h/dia; passada: batida/faltaram; futura: meta e h/dia). Painel **Seu ritmo**
-  em destaque: média por dia útil × meta diária, h/dia para cada faixa e projeção de fechamento
+  (corrente: ritmo, faltam, h/dia; passada: batida/faltaram; futura: meta e h/dia)
 - Card "Mês": horas / meta, %, barra com 100%/125%; por faixa: "no ritmo (+3h) · faltam 133h ·
-  8,3h/dia nos 16 dias úteis" (mês passado: batida/faltaram)
+  8,3h/dia nos próximos 16 dias úteis" (mês passado: batida/faltaram). Ao lado, painel **Seu pace** em destaque:
+  média por dia útil × meta diária, h/dia para cada faixa e projeção de fechamento do mês em horas e em %
+  da meta (`projectedPercent`)
 - Gráfico acumulado: horas concluídas × linhas ideais da meta (100%) e da supermeta (125%)
 - Ao lado do gráfico, **Calendário** do mês (`calendar`): dia útil em verde, férias/folga em azul,
   feriado em vermelho, fim de semana apagado; dias úteis futuros mais claros, hoje com contorno; ao passar
@@ -323,10 +324,12 @@ frontend/src/
 - Aviso quando a meta é estimada (ano sem feriados cadastrados), há tasks sem data ou tasks inválidas
 
 **Tela do trimestre**
-- Meta × realizado do trimestre, com faixas 100%/125% e status de ritmo
-- Barras por mês: meta × realizado
-- Previsão (card e barra) só no trimestre corrente: nos outros não há tasks em aberto contando, então
-  seria igual ao realizado
+- Card "Trimestre" com **Entregue / Previsto** (`delivered`/`forecast`), igual ao mês: horas / meta, %, barra
+  com 100%/125% e, por faixa, ritmo, faltam e h/dia nos dias úteis restantes do trimestre. O botão só
+  aparece no trimestre corrente (nos outros não há tasks em aberto, então previsto = entregue)
+- Barras por mês: meta × entregue ou previsto (segue o botão). No trimestre corrente, linha tracejada no mês
+  atual com o **esperado até hoje** (100%, `months[].expectedHours`: meta × dias úteis encerrados ÷ dias
+  úteis do mês) e legenda com o valor
 
 **Navegação:** mês por botões: ano em ‹ 2026 › (só troca os meses mostrados, sem buscar) e os 12 meses
 à vista, com ● no mês atual; clicar num mês busca os dados. Enquanto carrega, os outros meses ficam

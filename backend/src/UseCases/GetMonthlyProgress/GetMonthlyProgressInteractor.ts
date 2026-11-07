@@ -48,6 +48,10 @@ export class GetMonthlyProgressInteractor implements GetMonthlyProgressInputBoun
     const remainingDays = remainingWorkingDays(workMonth, today)
     const { weekOf, weeks } = monthWeeks(month, today)
     const expected = goal * elapsedWorkdayRatio(workMonth, today)
+    // Ritmo do mês: hoje não entra (ainda está em andamento), igual ao "no ritmo".
+    const closedWorkdays = workMonth.workdays.filter((d) => d < today).length
+    const doneBeforeToday = sumHours(done.filter((t) => t.completionLocalDate(tz)! < today))
+    const pace = closedWorkdays > 0 ? doneBeforeToday / closedWorkdays : null
     const scenario = (hours: number) => ({
       hours,
       tiers: buildOutlook(goal, expected, hours, this.settings.goalTiers, remainingDays),
@@ -64,6 +68,9 @@ export class GetMonthlyProgressInteractor implements GetMonthlyProgressInputBoun
       openHours,
       forecastHours: doneHours + openHours,
       remainingWorkingDays: remainingDays,
+      dailyGoalHours: workMonth.hoursPerDay,
+      pacePerWorkday: pace,
+      projectedHours: pace === null ? null : Math.max(doneHours, doneBeforeToday + pace * remainingDays),
       delivered: scenario(doneHours),
       forecast: scenario(doneHours + openHours),
       today: isCurrent ? this.todayProgress(all, today, workMonth.hoursPerDay, openHours) : null,

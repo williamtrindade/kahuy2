@@ -11,6 +11,12 @@ export type GetMonthlyProgressResponseModel = {
   openHours: number
   forecastHours: number
   remainingWorkingDays: number
+  /** meta de um dia útil (HOURS_PER_DAY) */
+  dailyGoalHours: number
+  /** ritmo: entregue no mês antes de hoje ÷ dias úteis do mês já encerrados; null se nenhum encerrou */
+  pacePerWorkday: number | null
+  /** projeção do mês: entregue até ontem + ritmo × dias úteis restantes (mínimo = entregue) */
+  projectedHours: number | null
   /** Dois cenários para o front alternar: delivered (só concluídas) e forecast (+ tasks em aberto). */
   delivered: Scenario<TierOutlook>
   forecast: Scenario<TierOutlook>

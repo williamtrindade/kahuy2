@@ -1,10 +1,8 @@
-import { faGaugeHigh } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { type CSSProperties, useState } from 'react'
-import { getWeekly, type MonthlyProgressViewModel, type WeeklyProgressViewModel } from '../../api/client'
+import { getWeekly, type MonthlyProgressViewModel } from '../../api/client'
 import { ScenarioToggle, useScenario } from '../../components/ScenarioToggle'
 import { TierBar } from '../../components/TierBar'
-import { perDay, TierOutlookList } from '../../components/TierOutlookList'
+import { TierOutlookList } from '../../components/TierOutlookList'
 import { usePeriod } from '../../components/usePeriod'
 import { hours } from '../../format'
 
@@ -16,7 +14,7 @@ const weekLabel = (start: string, end: string) =>
 type MonthWeek = MonthlyProgressViewModel['weeks'][number]
 
 /**
- * Semanas do mês já à vista; clicar carrega a semana (loading no próprio card), com o ritmo em destaque.
+ * Semanas do mês já à vista; clicar carrega a semana (loading no próprio card).
  * `initialWeek` undefined = semana corrente.
  */
 export function WeekCard({ weeks, initialWeek, onError }: { weeks: MonthWeek[]; initialWeek?: string; onError: (e: unknown) => void }) {
@@ -74,85 +72,24 @@ export function WeekCard({ weeks, initialWeek, onError }: { weeks: MonthWeek[]; 
             Carregando semana…
           </span>
         ) : (
-          <div className="row g-4">
-            <div className="col-lg">
-              <div className="metric">
-                {hours(scenario.hours)} <small>/ {hours(data.goalHours)} · {scenario.percent}%</small>
-              </div>
-              <div className="small text-secondary">
-                {view === 'forecast'
-                  ? `${hours(data.doneHours)} entregues + ${hours(data.openHours)} em aberto`
-                  : data.period === 'past'
-                    ? 'semana encerrada · só tasks concluídas'
-                    : data.period === 'future'
-                      ? 'semana ainda não começou'
-                      : 'só tasks concluídas'}
-              </div>
-              <TierBar value={scenario.hours} tiers={scenario.tiers.map((t) => ({ percent: t.percent, hours: t.goalHours }))} />
-              <TierOutlookList tiers={scenario.tiers} remainingWorkdays={data.remainingWorkdays} closedLabel="semana encerrada" period={data.period} />
+          <>
+            <div className="metric">
+              {hours(scenario.hours)} <small>/ {hours(data.goalHours)} · {scenario.percent}%</small>
             </div>
-
-            <div className="col-lg-auto">
-              <PacePanel week={data} tiers={scenario.tiers} />
+            <div className="small text-secondary">
+              {view === 'forecast'
+                ? `${hours(data.doneHours)} entregues + ${hours(data.openHours)} em aberto`
+                : data.period === 'past'
+                  ? 'semana encerrada · só tasks concluídas'
+                  : data.period === 'future'
+                    ? 'semana ainda não começou'
+                    : 'só tasks concluídas'}
             </div>
-          </div>
+            <TierBar value={scenario.hours} tiers={scenario.tiers.map((t) => ({ percent: t.percent, hours: t.goalHours }))} />
+            <TierOutlookList tiers={scenario.tiers} remainingWorkdays={data.remainingWorkdays} closedLabel="semana encerrada" period={data.period} />
+          </>
         )}
       </div>
-    </div>
-  )
-}
-
-/** Ritmo em destaque: média por dia útil encerrado × meta diária, o que falta por dia e a projeção. */
-function PacePanel({ week, tiers }: { week: WeeklyProgressViewModel; tiers: WeeklyProgressViewModel['delivered']['tiers'] }) {
-  const pace = week.pacePerWorkday
-  const first = tiers[0]
-  const ahead = pace !== null && pace >= week.dailyGoalHours
-
-  return (
-    <div className="pace-panel">
-      <div className="label text-white-50 mb-1">
-        <FontAwesomeIcon icon={faGaugeHigh} className="me-2" />
-        Seu ritmo
-      </div>
-      {pace === null ? (
-        <p className="mb-0 text-white-50">
-          {week.period === 'future' ? 'A semana ainda não começou.' : 'Aparece depois do primeiro dia útil encerrado.'}
-        </p>
-      ) : (
-        <>
-          <div className="pace-value">
-            {hours(pace)}
-            <small> /dia útil</small>
-          </div>
-          <div className={`small fw-semibold ${ahead ? 'text-success' : 'text-warning'}`}>
-            {ahead ? 'acima' : 'abaixo'} da meta diária de {hours(week.dailyGoalHours)}
-          </div>
-        </>
-      )}
-
-      {week.remainingWorkdays > 0 && tiers.some((t) => t.remainingHours > 0) && (
-        <ul className="list-unstyled small mb-0 mt-2">
-          {tiers
-            .filter((t) => t.remainingHours > 0)
-            .map((t) => (
-              <li key={t.percent}>
-                Para {t.percent}%: <strong>{perDay(t.requiredPerDay, week.remainingWorkdays)}</strong>
-              </li>
-            ))}
-        </ul>
-      )}
-
-      {week.projectedHours !== null && first && (
-        <p className="small mb-0 mt-2 pt-2 border-top border-secondary">
-          {week.period === 'past' ? 'Fechou com ' : 'Nesse ritmo, fecha com '}
-          <strong>~{hours(week.projectedHours)}</strong>{' '}
-          {week.projectedHours >= first.goalHours ? (
-            <span className="text-success fw-semibold">→ bate {first.percent}%</span>
-          ) : (
-            <span className="text-warning">→ abaixo de {first.percent}%</span>
-          )}
-        </p>
-      )}
     </div>
   )
 }

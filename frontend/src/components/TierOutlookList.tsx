@@ -3,8 +3,11 @@ import { hours, signedHours } from '../format'
 
 type Period = 'past' | 'current' | 'future'
 
-/** "nos 5 dias úteis" / "hoje, último dia útil". */
-export const perDay = (h: number, days: number) => (days === 1 ? `${hours(h)} hoje, último dia útil` : `${hours(h)}/dia nos ${days} dias úteis`)
+/** Período atual: "8h/dia nos próximos 5 dias úteis" (hoje conta) ou "8h hoje, último dia útil"; fora dele, sem "próximos"/"hoje". */
+export const perDay = (h: number, days: number, current = true) =>
+  days === 1
+    ? `${hours(h)} ${current ? 'hoje, último dia útil' : 'no único dia útil'}`
+    : `${hours(h)}/dia nos ${current ? 'próximos ' : ''}${days} dias úteis`
 
 /**
  * Por faixa. Corrente: no ritmo/atrás, quanto falta e as horas por dia útil restante.
@@ -21,7 +24,7 @@ export function TierOutlookList({ tiers, remainingWorkdays, closedLabel, period 
             </li>
           ) : (
             <li key={t.percent} className="mb-1 text-secondary">
-              <span className="fw-semibold text-dark">{t.percent}%</span> · {hours(t.goalHours)} · {perDay(t.requiredPerDay, remainingWorkdays)}
+              <span className="fw-semibold text-dark">{t.percent}%</span> · {hours(t.goalHours)} · {perDay(t.requiredPerDay, remainingWorkdays, false)}
             </li>
           ),
         )}

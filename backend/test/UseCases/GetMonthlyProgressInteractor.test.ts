@@ -41,6 +41,20 @@ describe('GetMonthlyProgressInteractor', () => {
     expect(r.delivered.tiers[0]!.requiredPerDay).toBeCloseTo(147 / 18)
   })
 
+  it('projects the month by the pace of its closed workdays', async () => {
+    const r = await run({}) // qui 05/11: seg 02, ter 03, qua 04 encerrados, com 5h; restam 18 dias úteis
+    expect(r.dailyGoalHours).toBe(8)
+    expect(r.pacePerWorkday).toBeCloseTo(5 / 3)
+    expect(r.projectedHours).toBeCloseTo(5 + (5 / 3) * 18)
+    const past = await run({ month: '2026-10' }) // outubro inteiro encerrado: 5h em 22 dias úteis
+    expect(past.pacePerWorkday).toBeCloseTo(5 / 22)
+    expect(past.projectedHours).toBe(5)
+    const future = await run({ month: '2026-12' })
+    expect([future.pacePerWorkday, future.projectedHours]).toEqual([null, null])
+    const firstDay = await run({}, { now: '2026-11-02T15:00:00Z' }) // segunda 02: nada encerrado no mês
+    expect(firstDay.pacePerWorkday).toBeNull()
+  })
+
   it('splits the month into delivered and forecast scenarios', async () => {
     const r = await run({})
     expect(r.forecast.hours).toBe(11)

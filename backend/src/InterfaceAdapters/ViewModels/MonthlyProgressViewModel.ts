@@ -10,6 +10,8 @@ type Today = NonNullable<R['today']>
 export type DayTierViewModel = DayTier
 
 export type MonthlyProgressViewModel = Omit<R, 'delivered' | 'forecast' | 'today'> & {
+  /** projeção do ritmo em % da meta do mês; null sem ritmo */
+  projectedPercent: number | null
   delivered: ScenarioViewModel
   forecast: ScenarioViewModel
   today: (Omit<Today, 'delivered' | 'forecast'> & { delivered: ScenarioViewModel<DayTierViewModel>; forecast: ScenarioViewModel<DayTierViewModel> }) | null
@@ -29,6 +31,9 @@ export function toMonthlyProgressViewModel(r: R): MonthlyProgressViewModel {
     openHours: round1(r.openHours),
     forecastHours: round1(r.forecastHours),
     averageHoursPerTask: round1(r.averageHoursPerTask),
+    pacePerWorkday: r.pacePerWorkday === null ? null : round1(r.pacePerWorkday),
+    projectedHours: r.projectedHours === null ? null : round1(r.projectedHours),
+    projectedPercent: r.projectedHours === null ? null : percent(r.projectedHours, r.goalHours),
     delivered: toOutlookScenario(r.delivered, r.goalHours),
     forecast: toOutlookScenario(r.forecast, r.goalHours),
     today: r.today && {

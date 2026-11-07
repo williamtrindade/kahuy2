@@ -5,7 +5,7 @@ import type { ClockInterface } from '../Contracts/ClockInterface'
 import type { TaskRepositoryInterface } from '../Contracts/TaskRepositoryInterface'
 import type { WorkCalendarRepositoryInterface } from '../Contracts/WorkCalendarRepositoryInterface'
 import type { ProgressSettings } from '../ProgressSettings'
-import { buildTiers, doneTasksIn, elapsedWorkdayRatio, openTasks, sumHours } from '../Shared/taskAggregations'
+import { buildOutlook, doneTasksIn, elapsedWorkdayRatio, openTasks, remainingWorkingDays, sumHours } from '../Shared/taskAggregations'
 import type { GetQuarterlyProgressInputBoundary } from './Boundaries/GetQuarterlyProgressInputBoundary'
 import type { GetQuarterlyProgressOutputBoundary } from './Boundaries/GetQuarterlyProgressOutputBoundary'
 import type { GetQuarterlyProgressRequestModel } from './DTOs/GetQuarterlyProgressRequestModel'
@@ -28,16 +28,18 @@ export class GetQuarterlyProgressInteractor implements GetQuarterlyProgressInput
     const { tasks: all } = await this.tasks.findAll()
     const openHours = sumHours(openTasks(all, this.settings))
 
-    let expected100 = 0
+    let remainingDays = 0
     const months = quarter.months().map((month) => {
       const workMonth = this.calendar.workMonth(month)
       const goalHours = workMonth.goal()
       const doneHours = sumHours(doneTasksIn(all, month, this.settings))
       const isCurrent = month.equals(current)
-      expected100 += goalHours * elapsedWorkdayRatio(workMonth, today)
+      const expectedHours = goalHours * elapsedWorkdayRatio(workMonth, today)
+      remainingDays += remainingWorkingDays(workMonth, today)
       return {
         month: month.toString(),
         goalHours,
+        expectedHours,
         doneHours,
         forecastHours: doneHours + (isCurrent ? openHours : 0),
         goalEstimated: workMonth.estimated,
@@ -47,14 +49,23 @@ export class GetQuarterlyProgressInteractor implements GetQuarterlyProgressInput
 
     const goalHours = months.reduce((acc, m) => acc + m.goalHours, 0)
     const doneHours = months.reduce((acc, m) => acc + m.doneHours, 0)
+    const forecastHours = months.reduce((acc, m) => acc + m.forecastHours, 0)
+    const expected = months.reduce((acc, m) => acc + m.expectedHours, 0)
+    const scenario = (hours: number) => ({
+      hours,
+      tiers: buildOutlook(goalHours, expected, hours, this.settings.goalTiers, remainingDays),
+    })
+    const [, , last] = quarter.months()
 
     presenter.present({
       quarter: quarter.toString(),
       goalHours,
       doneHours,
-      forecastHours: months.reduce((acc, m) => acc + m.forecastHours, 0),
-      remainingHours: Math.max(0, goalHours - doneHours),
-      tiers: buildTiers(goalHours, expected100, doneHours, this.settings.goalTiers),
+      forecastHours,
+      period: months.some((m) => m.isCurrent) ? 'current' : last.compare(current) < 0 ? 'past' : 'future',
+      remainingWorkingDays: remainingDays,
+      delivered: scenario(doneHours),
+      forecast: scenario(forecastHours),
       months,
     })
   }

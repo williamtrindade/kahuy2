@@ -34,7 +34,6 @@ export class GetWeeklyProgressInteractor implements GetWeeklyProgressInputBounda
         }),
       )
     const doneHours = doneOn(() => true)
-    const doneBeforeToday = doneOn((d) => d < today)
     // Abertas contam só no período corrente (spec §2).
     const openHours = isCurrent ? sumHours(openTasks(all, this.settings)) : 0
 
@@ -44,7 +43,6 @@ export class GetWeeklyProgressInteractor implements GetWeeklyProgressInputBounda
     const remainingWorkdays = workdays.length - closed
     const goalHours = workdays.length * hoursPerDay
     const expected = closed * hoursPerDay
-    const pace = closed > 0 ? doneBeforeToday / closed : null
     const scenario = (hours: number) => ({
       hours,
       tiers: buildOutlook(goalHours, expected, hours, this.settings.goalTiers, remainingWorkdays),
@@ -57,14 +55,11 @@ export class GetWeeklyProgressInteractor implements GetWeeklyProgressInputBounda
       previousWeek: week.previous().start,
       nextWeek: week.next().start,
       goalHours,
-      dailyGoalHours: hoursPerDay,
       workingDays: workdays.length,
       remainingWorkdays,
       doneHours,
       openHours,
       forecastHours: doneHours + openHours,
-      pacePerWorkday: pace,
-      projectedHours: pace === null ? null : Math.max(doneHours, doneBeforeToday + pace * remainingWorkdays),
       delivered: scenario(doneHours),
       forecast: scenario(doneHours + openHours),
     })

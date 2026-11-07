@@ -6,12 +6,12 @@ A self-hosted dashboard for people who log their work tasks in **Notion** and ha
 goal**. It reads your database (read-only) and shows your progress against 100% and 125% of the goal.
 
 - **Today**: hours vs. the daily goal
-- **Week** (Sun–Sat, any week): what's missing, hours/day needed, and your pace
-- **Month**: done, forecast, pace, cumulative chart with goal lines, a calendar (workdays, vacation,
+- **Week** (Sun–Sat, any week): what's missing and hours/day needed
+- **Month**: done, forecast, your pace and projection, cumulative chart with goal lines, a calendar (workdays, vacation,
   holidays), hours by type/dev/requester, and the task list (development and testing), by month or week
 - **Quarter**: the three months combined, any quarter of any year
 
-Today, week, and month switch between **Delivered** (done tasks only) and **Forecast** (+ open tasks).
+Today, week, month, and quarter switch between **Delivered** (done tasks only) and **Forecast** (+ open tasks).
 The UI is in Brazilian Portuguese.
 
 Each person connects their own database and runs their own instance: locally, or for free on Cloudflare.
